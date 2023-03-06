@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo de Receitas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+        <style>
+            .card {
+                margin: 5px;
+            }
+        </style>
+</head>
+<body class="bg-warning" onload="open()">
+    <header class="bg-white">
+        <h1>Catalogo de Receitas</h1>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap" id="pnlCatalogo"></div>
+        </div>
+    </main>
+    <footer style="text-align: center;" class="bg-black fixed-bottom">
+        <div class="h3 text-white">Catalogo de Receitas</div>
+    </footer>
+    <script>
+        const receita = [
+            {
+                titulo: 'Arroz de Couve-Flor',
+                imagem: '../imagens/arroz.jpg',
+                preparo: 'Deixe a couve-flor picada. Adicione os ingredientes e refogue bem. Adicione sal, tampe a panela e deixe cozinhar.',
+                ingredientes: ['Arroz', 'Couve-Flor', 'Cebola Média', 'Azeite']
+            },
+            {
+                titulo: 'Bolo de Café',
+                imagem: '../imagens/bolo.jpg',
+                preparo: 'Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura. Deixe no forno.',
+                ingredientes: ['Farinha de Trigo', 'Açúcar', 'Café Coado', 'Chocolate em Pó']
+            },
+            {
+                titulo: 'Coxinha de Brigadeiro',
+                imagem: '../imagens/brigadeiro.jpg',
+                preparo: 'Junte o leite condensado, chocolate em pó e a manteiga. Aqueça no fogo baixo. Envolva os morangos e passe no granulado.',
+                ingredientes: ['Leite Condensado', 'Chocolate em Pó', 'Manteiga', 'Morango', 'Chocolate Granulado']
+            }
+        ];
+
+        function getListaIngredientes(ingredientes) {
+        const abertura = '<ul>'
+        const lista = ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('')
+        const fechamento = '</ul>'
+        return abertura + lista + fechamento
+        }
+
+        function getCard(receita) {
+        const cartoes = receita.map(item => {
+            return `
+            <div class="card" style="width: 330px; display: inline-block;">
+                <img src="${item.imagem}" class="card-img-top">
+                <div class="card-body">
+                <h5 id="titulo" class="card-title">${item.titulo}</h5>
+                ${getListaIngredientes(item.ingredientes)}<hr>
+                <p class="card-text">${item.preparo}</p>
+                </div>
+            </div>
+            `
+        })
+        return cartoes.join('')
+        }
+
+        function open() {
+        const cartoes = getCard(receita)
+        document.getElementById('pnlCatalogo').innerHTML = cartoes
+        }
+        
+        open()
+    </script>
+</body>
+</html>
